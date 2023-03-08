@@ -1,10 +1,11 @@
 import express, { Express } from "express";
 import "dotenv/config";
 import mongoose from "mongoose";
-import colors from "colors.ts";
+import userRouter from "./routes/userRoutes";
 import projectRouter from "./routes/projectRoutes";
 import { connectDB } from "./config/db";
 import { errorHandler } from "./middleware/errorMiddleware";
+import { auth } from "./middleware/authMiddleware";
 
 const PORT: string | number = process.env.PORT || 5000;
 
@@ -15,7 +16,9 @@ const app: Express = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api/projects", projectRouter);
+app.use("/api/projects", auth, projectRouter);
+app.use("/api/user", userRouter);
+
 app.use(errorHandler);
 
 app.listen(PORT, () => {

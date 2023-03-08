@@ -7,7 +7,7 @@ import Project from "../models/projectModel";
 // @access  Public
 const getProjects = async (req: Request, res: Response): Promise<void> => {
   try {
-    const projects: IProject[] = await Project.find();
+    const projects: IProject[] = await Project.find({ user: req.user.id });
     res.status(200).json(projects);
   } catch (err: any) {
     res.status(400).json({ error: err.message });
@@ -19,8 +19,10 @@ const getProjects = async (req: Request, res: Response): Promise<void> => {
 // @access  Public
 const setProject = async (req: Request, res: Response): Promise<void> => {
   const { title, description } = req.body;
+
   try {
     const project: IProject = new Project({
+      user: req.user.id,
       title,
       description,
     });
