@@ -1,4 +1,4 @@
-import jwt, { JwtPayload, Secret } from "jsonwebtoken";
+import jwt, { Secret } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
 const SECRET_KEY: Secret = process.env.JWT_SECRET as string;
@@ -17,7 +17,8 @@ const auth = async (
     }
 
     if (token.startsWith("Bearer")) {
-      token = token.slice(7, token.length).trimLeft();
+      // Get token from header
+      token = token.split(" ")[1];
     }
 
     const verified: string | jwt.JwtPayload = jwt.verify(token, SECRET_KEY);
