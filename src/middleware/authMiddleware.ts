@@ -12,7 +12,7 @@ const auth = async (
     let token: any = req.header("Authorization");
 
     if (!token) {
-      res.status(403).send("Access Denied");
+      res.status(401).send("Not Authorized");
       return;
     }
 
