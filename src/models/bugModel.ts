@@ -8,8 +8,9 @@ const bugSchema: Schema = new Schema(
       required: [true, "Please add a text value"],
     },
     projectId: {
-      type: String,
-      required: [true, "Please add a text value"],
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "Project",
     },
     summary: {
       type: String,
