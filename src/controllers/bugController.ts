@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { IBug } from "../types/bugTypes";
 import Bug from "../models/bugModel";
+import { IProject } from "../types/projectTypes";
+import Project from "../models/projectModel";
 
 // @desc    Get bugs
 // @route   GET /api/bugs
@@ -21,6 +23,14 @@ const setBug = async (req: Request, res: Response): Promise<void> => {
   const { name, projectId, summary, status } = req.body;
 
   try {
+    // Check if project exists to add bug to
+    const project: IProject | null = await Project.findById(projectId);
+
+    if (!project) {
+      res.status(400);
+      throw new Error("Project not found");
+    }
+
     const bug: IBug = new Bug({
       name,
       projectId,
