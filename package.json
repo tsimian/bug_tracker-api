@@ -4,7 +4,9 @@
   "description": "Back end of bug tracker app",
   "main": "src/server.ts",
   "scripts": {
-    "start": "concurrently \"tsc -w\" \"nodemon dist/js/server.js\"",
+    "start": "node dist/js/server.js",
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/js/server.js\"",
+    "build": "npm install && tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
