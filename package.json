@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/js/server.js",
     "dev": "concurrently \"tsc -w\" \"nodemon dist/js/server.js\"",
-    "build": "npm install && tsc",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
